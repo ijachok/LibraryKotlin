@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookConstraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".BookActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageBookCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+                    app:srcCompat="@drawable/ic_launcher_background"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageBookCover"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonAddToFavourites"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:icon="@drawable/ic_favourite_selector" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonStartReading"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:icon="@drawable/ic_add_selector" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonReadLater"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:icon="@drawable/ic_clock_selector" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonMarkAsRead"
+                        style="@style/Widget.Material3.Button.IconButton.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checkable="true"
+                        app:icon="@drawable/ic_done_selector" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textTitleValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Some book title"
+                    android:textSize="40sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+                <TextView
+                    android:id="@+id/textShDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="and some secondary title"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="@+id/textTitleValue"
+                    app:layout_constraintTop_toBottomOf="@+id/textTitleValue" />
+
+
+                <TextView
+                    android:id="@+id/textAuthorValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="author"
+                    app:layout_constraintStart_toStartOf="@+id/textShDesc"
+                    app:layout_constraintTop_toBottomOf="@+id/textShDesc" />
+
+                <TextView
+                    android:id="@+id/textPages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pages"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textPagesValue"
+                    app:layout_constraintStart_toEndOf="@+id/textPagesValue"
+                    app:layout_constraintTop_toBottomOf="@+id/textAuthorValue" />
+
+                <TextView
+                    android:id="@+id/textPagesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pages"
+                    app:layout_constraintStart_toStartOf="@+id/textAuthorValue"
+                    app:layout_constraintTop_toBottomOf="@+id/textAuthorValue" />
+
+                <TextView
+                    android:id="@+id/textLongDescription"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="long descripton"
+                    app:layout_constraintStart_toStartOf="@+id/textPagesValue"
+                    app:layout_constraintTop_toBottomOf="@+id/textPagesValue"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
