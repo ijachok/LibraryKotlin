@@ -1,19 +1,14 @@
 package me.ijachok.librarykotlin
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.datastore.dataStore
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
-import kotlinx.collections.immutable.mutate
-
-val Context.dataStore by dataStore("books-lists.json", BooksSerializer)
 
 class BookActivity : AppCompatActivity() {
     private lateinit var imageBookCover: ShapeableImageView

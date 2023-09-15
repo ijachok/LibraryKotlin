@@ -2,8 +2,6 @@ package me.ijachok.librarykotlin
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.serialization.Serializable
 
 data class Book(
     var title: String?,
@@ -56,10 +54,9 @@ data class Book(
     }
 }
 
-@Serializable
 object Supplier {
 
-    var allBooks = persistentListOf(
+    var allBooks = mutableListOf(
         Book(
             "Zero Bugs",
             "Kate Thompson",
