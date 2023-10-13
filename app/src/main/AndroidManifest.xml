@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LibraryKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".AddBookActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReadLaterBooksActivity"
             android:exported="false" />
         <activity

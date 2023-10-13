@@ -3,8 +3,12 @@ package me.ijachok.librarykotlin
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.color.DynamicColors
+import me.ijachok.librarykotlin.room.BookViewModel
 
 
 class MainActivity : AppCompatActivity() {
@@ -15,11 +19,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnReadLater: Button
     private lateinit var btnAlRead: Button
     private lateinit var btnAbout: Button
+    private lateinit var bookViewModel: BookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         DynamicColors.applyToActivitiesIfAvailable(this.application)
+
+        bookViewModel = ViewModelProvider(this).get(BookViewModel::class.java)
+        bookViewModel.readAllData.observe(this, Observer {
+            if (it.isEmpty()){
+                setDefaultBooks()
+                Toast.makeText(this, "Default books were added", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         btnAllBooks = findViewById(R.id.btnAllBooks)
         btnFavourites = findViewById(R.id.btnFavourites)
@@ -52,5 +66,11 @@ class MainActivity : AppCompatActivity() {
             // TODO: about page
         }
 
+    }
+
+    private fun setDefaultBooks() {
+        for (book in Supplier.allBooks){
+            bookViewModel.addBook(book)
+        }
     }
 }

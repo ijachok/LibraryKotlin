@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
+import me.ijachok.librarykotlin.room.Book
 
 class BookRecViewAdapter(private val context: Context, private val books: List<Book>) :
     RecyclerView.Adapter<BookRecViewAdapter.ViewHolder>() {
@@ -64,7 +65,7 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
             context.startActivity(intent)
         }
 
-        if (books[holder.adapterPosition].isExpanded) {
+    /*  if (books[holder.adapterPosition].isExpanded) {
             TransitionManager.beginDelayedTransition(holder.parent)
             holder.expandedRelLayout.visibility = View.VISIBLE
             holder.downArrow.rotation = 180f
@@ -73,6 +74,7 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
             TransitionManager.beginDelayedTransition(holder.parent)
             holder.expandedRelLayout.visibility = View.GONE
         }
+    */
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -86,11 +88,11 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
         val btnToggleFav: MaterialButton = itemView.findViewById(R.id.btnToggleFav)
 
         init {
-            downArrow.setOnClickListener {
+            /*downArrow.setOnClickListener {
                 val book = books[adapterPosition]
                 book.isExpanded = !book.isExpanded
                 notifyItemChanged(adapterPosition)
-            }
+            }*/
         }
 
     }

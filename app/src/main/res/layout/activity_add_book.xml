@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AddBookActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageView2"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextImageLinkLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextImageLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cover image link"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextTitleLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/editTextImageLinkLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextImageLinkLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextImageLinkLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextShDescLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/editTextTitleLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextTitleLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTitleLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextShDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Secondary title"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextAuthorLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/editTextShDescLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextShDescLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextShDescLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Author"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPagesLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/editTextAuthorLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextAuthorLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextAuthorLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pages count"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextLongDescLayout"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:ems="10"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/editTextPagesLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextPagesLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPagesLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLongDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnAddBook"
+                android:layout_width="260dp"
+                android:layout_height="55dp"
+                android:layout_marginVertical="8dp"
+                android:text="Add book"
+                app:layout_constraintEnd_toEndOf="@+id/editTextLongDescLayout"
+                app:layout_constraintStart_toStartOf="@+id/editTextLongDescLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editTextLongDescLayout" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
