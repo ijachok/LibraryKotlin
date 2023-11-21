@@ -6,6 +6,11 @@ With the ability to organize books into four distinct categories
 it offers a convenient way to keep track of your reading list. 
 The app comes pre-loaded with 10 default books and allows users to add and delete.
 
+Technologies Used:
+Room: Utilized for local database management, ensuring efficient storage and retrieval of book data.
+Coroutines: Employed for asynchronous programming to manage concurrent book operations seamlessly.
+Material Components: The app's UI components are built using Material Design for a modern and intuitive user interface.
+
 Features:
 Categorization: Organize books into four different lists for easy management.
 Default Books: Ten default books provided to kickstart your library.
