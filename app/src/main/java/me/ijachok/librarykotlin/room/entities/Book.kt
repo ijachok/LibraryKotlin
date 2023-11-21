@@ -1,4 +1,4 @@
-package me.ijachok.librarykotlin.room
+package me.ijachok.librarykotlin.room.entities
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -6,14 +6,16 @@ import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "book_table")
+@Entity
 data class Book(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val bookId: Long,
     var title: String?,
     var author: String?,
     var imageURL: String?,
     var pages: Int,
     var shortDescription: String?,
     var longDescription: String?
-) : Parcelable
+):Parcelable {
+    var isExpanded: Boolean = false
+}

@@ -1,4 +1,4 @@
-package me.ijachok.librarykotlin
+package me.ijachok.librarykotlin.activities
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import me.ijachok.librarykotlin.room.Book
+import me.ijachok.librarykotlin.R
+import me.ijachok.librarykotlin.room.entities.Book
 import me.ijachok.librarykotlin.room.BookViewModel
 
 class AddBookActivity : AppCompatActivity() {

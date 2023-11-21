@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadLaterBooksActivity"
-    android:padding="10dp">
+    tools:context=".activities.ReadLaterBooksActivity"
+    android:padding="16dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/readLaterBooksRecView"

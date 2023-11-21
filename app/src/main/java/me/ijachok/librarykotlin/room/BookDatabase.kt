@@ -4,28 +4,35 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import me.ijachok.librarykotlin.room.entities.Book
+import me.ijachok.librarykotlin.room.entities.BookList
+import me.ijachok.librarykotlin.room.relations.BookListCrossRef
 
-@Database(entities = [Book::class], version = 1, exportSchema = false)
-abstract class BookDatabase: RoomDatabase() {
-    abstract fun bookDao():BookDao
+@Database(
+    entities = [Book::class, BookList::class, BookListCrossRef::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class BookDatabase : RoomDatabase() {
+    abstract fun bookDao(): BookDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: BookDatabase? = null
 
-        fun getDatabase(context: Context):BookDatabase{
+        fun getDatabase(context: Context): BookDatabase {
             val tempInstance = INSTANCE
-            if(tempInstance!=null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     BookDatabase::class.java,
                     "book_database"
 
                 ).build()
-                INSTANCE=instance
+                INSTANCE = instance
                 return instance
             }
         }

@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.LibraryKotlin" parent="Theme.Material3.DynamicColors.Light">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/material_dynamic_neutral_variant90</item>
+        <item name="android:navigationBarColor">#00FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.LibraryKotlin" parent="Base.Theme.LibraryKotlin" />

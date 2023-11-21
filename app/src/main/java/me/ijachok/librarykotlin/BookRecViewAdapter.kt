@@ -2,7 +2,6 @@ package me.ijachok.librarykotlin
 
 import android.content.Context
 import android.content.Intent
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,26 +9,47 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
-import me.ijachok.librarykotlin.room.Book
+import me.ijachok.librarykotlin.activities.BookActivity
+import me.ijachok.librarykotlin.room.BookViewModel
+import me.ijachok.librarykotlin.room.entities.Book
+import me.ijachok.librarykotlin.room.relations.BookListCrossRef
 
-class BookRecViewAdapter(private val context: Context, private val books: List<Book>) :
+class BookRecViewAdapter(
+    private val context: Context,
+    private val books: List<Book>,
+    private val model: BookViewModel
+) :
     RecyclerView.Adapter<BookRecViewAdapter.ViewHolder>() {
 
 
-    private var isFavouriteBooksActivity : Boolean = false
+    private var isFavouriteBooksActivity: Boolean = false
 
-    constructor(context: Context, books: List<Book>, isFavouriteBooksActivity: Boolean) : this(context, books){
+    constructor(
+        context: Context,
+        books: List<Book>,
+        model: BookViewModel,
+        isFavouriteBooksActivity: Boolean
+    ) : this(
+        context,
+        books,
+        model
+    ) {
         this.isFavouriteBooksActivity = isFavouriteBooksActivity
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.book_list_item, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.book_list_item, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -42,17 +62,18 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
         holder.txtShDescription.text = books[position].shortDescription
         Glide.with(context).asBitmap().load(books[position].imageURL).into(holder.bookCoverImage)
 
-        if (Supplier.favouriteBooks.contains(books[position])) {
-            holder.btnToggleFav.toggle()
-        }
+        model.isBookInList(books[position].bookId, Supplier.FAVOURITES)
+            .observe(holder.itemView.context as LifecycleOwner) {
+                if (it) holder.btnToggleFav.toggle()
+            }
 
-        holder.btnToggleFav.addOnCheckedChangeListener { button: MaterialButton, isChecked: Boolean ->
+        holder.btnToggleFav.addOnCheckedChangeListener { _: MaterialButton, isChecked: Boolean ->
             if (isChecked) {
-                if (!Supplier.favouriteBooks.add(books[position])) {
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
-                }
+                model.addBookToList(
+                    books[position], Supplier.FAVOURITES
+                )
             } else {
-                Supplier.favouriteBooks.remove(books[position])
+                model.deleteBookFromList(books[position], Supplier.FAVOURITES)
                 if (isFavouriteBooksActivity) {
                     notifyItemRemoved(position)
                 }
@@ -65,16 +86,6 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
             context.startActivity(intent)
         }
 
-    /*  if (books[holder.adapterPosition].isExpanded) {
-            TransitionManager.beginDelayedTransition(holder.parent)
-            holder.expandedRelLayout.visibility = View.VISIBLE
-            holder.downArrow.rotation = 180f
-            holder.parent.elevation = 10f
-        } else {
-            TransitionManager.beginDelayedTransition(holder.parent)
-            holder.expandedRelLayout.visibility = View.GONE
-        }
-    */
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -83,17 +94,7 @@ class BookRecViewAdapter(private val context: Context, private val books: List<B
         val txtTitle: TextView = itemView.findViewById(R.id.txtTitle)
         val txtShDescription: TextView = itemView.findViewById(R.id.txtShDescription)
         val txtAuthor: TextView = itemView.findViewById(R.id.txtAuthor)
-        val downArrow: ImageView = itemView.findViewById(R.id.downArrow)
-        val expandedRelLayout: RelativeLayout = itemView.findViewById(R.id.expandedRelLayout)
         val btnToggleFav: MaterialButton = itemView.findViewById(R.id.btnToggleFav)
-
-        init {
-            /*downArrow.setOnClickListener {
-                val book = books[adapterPosition]
-                book.isExpanded = !book.isExpanded
-                notifyItemChanged(adapterPosition)
-            }*/
-        }
 
     }
 

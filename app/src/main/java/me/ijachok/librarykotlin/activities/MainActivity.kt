@@ -1,4 +1,4 @@
-package me.ijachok.librarykotlin
+package me.ijachok.librarykotlin.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.color.DynamicColors
+import me.ijachok.librarykotlin.R
+import me.ijachok.librarykotlin.Supplier
 import me.ijachok.librarykotlin.room.BookViewModel
 
 
@@ -27,13 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         DynamicColors.applyToActivitiesIfAvailable(this.application)
 
-        bookViewModel = ViewModelProvider(this).get(BookViewModel::class.java)
-        bookViewModel.readAllData.observe(this, Observer {
-            if (it.isEmpty()){
+        bookViewModel = ViewModelProvider(this)[BookViewModel::class.java]
+        bookViewModel.allBooks.observe(this) {
+            if (it.isEmpty()) {
                 setDefaultBooks()
                 Toast.makeText(this, "Default books were added", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
+
+        bookViewModel.allBookLists.observe(this) {
+            if (it.isEmpty()) setDefaultLists()
+        }
 
         btnAllBooks = findViewById(R.id.btnAllBooks)
         btnFavourites = findViewById(R.id.btnFavourites)
@@ -72,5 +78,12 @@ class MainActivity : AppCompatActivity() {
         for (book in Supplier.allBooks){
             bookViewModel.addBook(book)
         }
+    }
+
+    private fun setDefaultLists(){
+        for (bookList in Supplier.allBookLists){
+            bookViewModel.addBookList(bookList)
+        }
+
     }
 }

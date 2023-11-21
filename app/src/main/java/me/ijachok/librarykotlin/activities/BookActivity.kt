@@ -1,4 +1,4 @@
-package me.ijachok.librarykotlin
+package me.ijachok.librarykotlin.activities
 
 import android.app.AlertDialog
 import android.os.Build
@@ -9,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Delete
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
-import me.ijachok.librarykotlin.room.Book
+import me.ijachok.librarykotlin.BookRecViewAdapter
+import me.ijachok.librarykotlin.R
+import me.ijachok.librarykotlin.Supplier
+import me.ijachok.librarykotlin.room.entities.Book
 import me.ijachok.librarykotlin.room.BookViewModel
 
 class BookActivity : AppCompatActivity() {
@@ -36,6 +38,7 @@ class BookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book)
+
 
         imageBookCover = findViewById(R.id.imageBookCover)
 
@@ -60,11 +63,12 @@ class BookActivity : AppCompatActivity() {
         if (intent != null) {
             val book = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra(BookRecViewAdapter.BOOK_ID_KEY, Book::class.java)
-            }else{
+            } else {
                 @Suppress("DEPRECATION")
                 intent.getParcelableExtra(BookRecViewAdapter.BOOK_ID_KEY) as? Book
             }
             if (book != null) {
+                title = book.title
                 setBook(book)
 
                 handleFavourites(book)
@@ -77,48 +81,56 @@ class BookActivity : AppCompatActivity() {
     }
 
 
-
     private fun handleFavourites(book: Book) {
-        if (Supplier.favouriteBooks.contains(book)) buttonAddToFavourites.toggle()
+        bookViewModel.isBookInList(book.bookId, Supplier.FAVOURITES).observe(this) {
+            if (it) buttonAddToFavourites.toggle()
+        }
 
         buttonAddToFavourites.addOnCheckedChangeListener { button, isChecked ->
-            if (isChecked) {
-                if (!Supplier.favouriteBooks.add(book)) Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-            } else Supplier.favouriteBooks.remove(book)
+            if (isChecked)  bookViewModel.addBookToList(book, Supplier.FAVOURITES)
+             else bookViewModel.deleteBookFromList(book, Supplier.FAVOURITES)
+
         }
     }
 
     private fun handleCurrentlyReading(book: Book) {
-        if (Supplier.currentlyReadingBooks.contains(book)) buttonStartReading.toggle()
+        bookViewModel.isBookInList(book.bookId, Supplier.CURRENTLY_READING).observe(this) {
+            if (it) buttonStartReading.toggle()
+        }
 
         buttonStartReading.addOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                if (!Supplier.currentlyReadingBooks.add(book)) Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-            } else Supplier.currentlyReadingBooks.remove(book)
+                bookViewModel.addBookToList(book, Supplier.CURRENTLY_READING)
+            } else bookViewModel.deleteBookFromList(book, Supplier.CURRENTLY_READING)
         }
     }
 
     private fun handleReadLater(book: Book) {
-        if (Supplier.readLaterBooks.contains(book)) buttonWantToRead.toggle()
+        bookViewModel.isBookInList(book.bookId, Supplier.READ_LATER).observe(this) {
+            if (it) buttonWantToRead.toggle()
+        }
 
         buttonWantToRead.addOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                if (!Supplier.readLaterBooks.add(book)) Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-            } else Supplier.readLaterBooks.remove(book)
+                bookViewModel.addBookToList(book, Supplier.READ_LATER)
+            } else bookViewModel.deleteBookFromList(book, Supplier.READ_LATER)
         }
     }
 
     private fun handleAlreadyRead(book: Book) {
-        if (Supplier.alreadyReadBooks.contains(book)) buttonMarkAsRead.toggle()
+        bookViewModel.isBookInList(book.bookId, Supplier.ALREADY_READ).observe(this) {
+            if (it) buttonMarkAsRead.toggle()
+        }
 
         buttonMarkAsRead.addOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                if (!Supplier.alreadyReadBooks.add(book)) Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-            } else Supplier.alreadyReadBooks.remove(book)
+                bookViewModel.addBookToList(book, Supplier.ALREADY_READ)
+            } else bookViewModel.deleteBookFromList(book, Supplier.ALREADY_READ)
         }
     }
+
     private fun handleDelete(book: Book) {
-        buttonDelete.setOnClickListener{
+        buttonDelete.setOnClickListener {
             buttonDelete.toggle()
 
             val builder = AlertDialog.Builder(this)
@@ -140,6 +152,7 @@ class BookActivity : AppCompatActivity() {
 
         }
     }
+
     private fun setBook(book: Book) {
         Glide.with(this).asBitmap().load(book.imageURL).into(imageBookCover)
         textTitleValue.text = book.title

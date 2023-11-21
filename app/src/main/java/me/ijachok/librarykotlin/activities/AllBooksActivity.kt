@@ -1,4 +1,4 @@
-package me.ijachok.librarykotlin
+package me.ijachok.librarykotlin.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import me.ijachok.librarykotlin.BookRecViewAdapter
+import me.ijachok.librarykotlin.R
+import me.ijachok.librarykotlin.room.BookDao
 import me.ijachok.librarykotlin.room.BookViewModel
 
 class AllBooksActivity : AppCompatActivity() {
@@ -23,10 +26,12 @@ class AllBooksActivity : AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         allBooksRecView.layoutManager = layoutManager
 
+
+
         bookViewModel = ViewModelProvider(this)[BookViewModel::class.java]
-        bookViewModel.readAllData.observe(this, Observer { books ->
-            allBooksRecView.adapter = BookRecViewAdapter(this, books)
-        })
+        bookViewModel.allBooks.observe(this) { books ->
+            allBooksRecView.adapter = BookRecViewAdapter(this, books, bookViewModel)
+        }
 
         fbAdd.setOnClickListener {
             startActivity(Intent(this, AddBookActivity::class.java))
